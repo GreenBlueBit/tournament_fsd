@@ -11,3 +11,36 @@ If I were to make this into an actual project, first of all I would try to avoid
 
 I have documented all of the changes in the tournament_test.py in the file itself, and respectively in tournament.py for the deeper level explanation.
 
+
+INSTRUCTIONS :
+
+-Go to your Vagrant Folder.
+
+-Open Bash.
+
+-If it's the first time, type 'vagrant init' and press enter.
+
+-Type 'vagrant up' and press enter.
+
+-Type 'vagrant ssh' and press enter
+
+#How about we agree that instead of saying type.... and press enter I just say enter .... ? Let's try that.
+
+-Enter cd /vagrant/tournament
+
+-Enter psql
+
+-Enter DROP DATABASE IF EXISTS tournament;
+
+-Enter CREATE DATABASE tournament;
+
+-Press and hold Ctrl and then press D.
+
+-Enter psql tournament < tournament.sql
+
+-Enter python
+
+-Enter import tournament_test
+
+-Do your tests.
+

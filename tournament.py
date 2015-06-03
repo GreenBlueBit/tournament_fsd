@@ -8,8 +8,12 @@ import psycopg2, re
 
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
-    print "Connected!"
-    return psycopg2.connect("dbname=project2")
+    try:
+        conn = psycopg2.connect("dbname=tournament")
+        print "Connected!"
+        return conn
+    except psycopg2.Error as e:
+        print e
 
 def deleteWins():
     DB = connect()
@@ -47,10 +51,11 @@ def countPlayers():
     return int(c.fetchone()[0])
 
 
+#In the next two functions I try to escape ' by adding two of them, noticed the name O'Neil needed it.
 def registerPlayer(name):
     DB = connect()
     c = DB.cursor()
-    chars_to_remove = ["'","!"]
+    chars_to_remove = ["'"]
     rx = '[' + re.escape(''.join(chars_to_remove))+']'
     name = re.sub(rx, '"', name)
     c.execute("INSERT INTO players (name) VALUES ('%s') RETURNING id;" % ( name,))
@@ -62,7 +67,7 @@ def registerPlayer(name):
 def createTournament(name):
     DB = connect()
     c = DB.cursor()
-    chars_to_remove = ["'","!"]
+    chars_to_remove = ["'"]
     rx = '[' + re.escape(''.join(chars_to_remove))+']'
     name = re.sub(rx, "''", name)
     c.execute("INSERT INTO tournaments (name) VALUES ('%s') RETURNING id;" % (name,))
